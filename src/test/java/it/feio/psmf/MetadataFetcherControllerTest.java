@@ -48,7 +48,7 @@ public class MetadataFetcherControllerTest {
 
     @Test
     public void testFetchMetadata() throws Exception {
-        given(this.playStoreHttpClientMock.get(anyString())).willReturn(buildPlayStoreResult());
+        given(this.playStoreHttpClientMock.get(anyString(), anyString())).willReturn(buildPlayStoreResult());
         mockMvc.perform(get("/").param("app-package", "it.feio.android.omninotes"))
           .andExpect(status().isOk())
           .andDo(result -> {

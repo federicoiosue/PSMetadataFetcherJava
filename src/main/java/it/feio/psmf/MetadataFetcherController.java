@@ -24,8 +24,9 @@ public class MetadataFetcherController {
     }
 
     @RequestMapping(value = "/", method = {RequestMethod.GET}, produces = "application/json")
-    public String fetchMetadata(@RequestParam("app-package") String appPackage) throws IOException {
-        PlayStoreResult playStoreResult = playStoreHttpClient.get(appPackage);
+    public String fetchMetadata(@RequestParam("app-package") String appPackage,
+      @RequestParam(value = "lang", defaultValue = "en") String lang) throws IOException {
+        PlayStoreResult playStoreResult = playStoreHttpClient.get(appPackage, lang);
         return new ObjectMapper().writeValueAsString(playStoreResult);
     }
 }
