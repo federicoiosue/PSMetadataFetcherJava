@@ -1,7 +1,6 @@
 package it.feio.psmf;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mashape.unirest.http.exceptions.UnirestException;
 import it.feio.psmf.http.PlayStoreHttpClient;
 import it.feio.psmf.models.PlayStoreResult;
 import java.io.IOException;
@@ -25,7 +24,7 @@ public class MetadataFetcherController {
     }
 
     @RequestMapping(value = "/", method = {RequestMethod.GET}, produces = "application/json")
-    public String fetchMetadata(@RequestParam("app-package") String appPackage) throws IOException, UnirestException {
+    public String fetchMetadata(@RequestParam("app-package") String appPackage) throws IOException {
         PlayStoreResult playStoreResult = playStoreHttpClient.get(appPackage);
         return new ObjectMapper().writeValueAsString(playStoreResult);
     }
