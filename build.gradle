@@ -14,7 +14,7 @@ apply plugin: 'org.springframework.boot'
 
 jar {
     baseName = 'PlayStoreMetadataFetcher'
-    version =  '0.0.1'
+    version = '1.0.0'
 }
 
 repositories {
@@ -26,17 +26,18 @@ targetCompatibility = 1.8
 
 dependencies {
 
-    testCompile("org.springframework.boot:spring-boot-starter-test")
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
+    testCompile 'org.powermock:powermock-module-junit4:1.7.3'
+    testCompile 'org.powermock:powermock-api-mockito:1.7.3'
+    testCompile group: 'org.powermock', name: 'powermock-core', version: '1.7.3'
+    testCompile group: 'org.powermock', name: 'powermock-module-junit4-rule-agent', version: '1.7.3'
 
-
-    // tag::jetty[]
-    compile("org.springframework.boot:spring-boot-starter-web") {
-        exclude module: "spring-boot-starter-tomcat"
+    compile('org.springframework.boot:spring-boot-starter-web') {
+        exclude module: 'spring-boot-starter-tomcat'
     }
-    compile("org.springframework.boot:spring-boot-starter-jetty")
-    // end::jetty[]
-    // tag::actuator[]
-//    compile("org.springframework.boot:spring-boot-starter-actuator")
-    // end::actuator[]
+    compile 'org.springframework.boot:spring-boot-starter-jetty'
+    compile 'org.jsoup:jsoup:1.10.3'
+    compile 'com.google.guava:guava:23.0'
+
 }
 
