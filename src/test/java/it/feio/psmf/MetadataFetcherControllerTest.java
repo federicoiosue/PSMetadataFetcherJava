@@ -22,9 +22,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = MetadataFetcherController.class)
 @AutoConfigureMockMvc
-public class MetadataFetcherControllerTest {
-
-    private String PLAY_STORE_RESULT_SOFTWARE_VERSION = "1.2.3";
+public class MetadataFetcherControllerTest extends BaseTest {
 
     @MockBean
     private PlayStoreHttpClient playStoreHttpClientMock;
@@ -59,10 +57,17 @@ public class MetadataFetcherControllerTest {
           });
     }
 
-    private PlayStoreResult buildPlayStoreResult() {
-        PlayStoreResult playStoreResult = new PlayStoreResult();
-        playStoreResult.setSoftwareVersion(PLAY_STORE_RESULT_SOFTWARE_VERSION);
-        return playStoreResult;
+    @Test
+    public void testFetchMetadataFull() throws Exception {
+        given(this.playStoreHttpClientMock.get(anyString(), anyString())).willReturn(buildPlayStoreResult());
+        mockMvc.perform(get("/").param("app-package", "it.feio.android.omninotes"))
+          .andExpect(status().isOk())
+          .andDo(result -> {
+              String a = result.getResponse().getForwardedUrl();
+              PlayStoreResult res = new ObjectMapper().readValue(a, PlayStoreResult.class);
+              assertEquals(PlayStoreResult.class, res.getClass());
+              assertEquals(PLAY_STORE_RESULT_SOFTWARE_VERSION, res.getSoftwareVersion());
+          });
     }
 
 }
