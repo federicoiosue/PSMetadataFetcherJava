@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
 @EnableCaching
 public class CachingConfig {
 
-    int CACHE_TTL_IN_MINUTES = 30;
+    int CACHE_TTL_IN_MINUTES = 10;
 
     @Bean
     public CacheManager cacheManager() {
