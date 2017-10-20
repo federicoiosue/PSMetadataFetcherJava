@@ -6,7 +6,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import it.feio.psmf.BaseTest;
-import it.feio.psmf.CachingConfig;
+import it.feio.psmf.configs.CachingConfig;
 import it.feio.psmf.models.PlayStoreResult;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;

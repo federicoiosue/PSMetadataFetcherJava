@@ -47,20 +47,7 @@ public class MetadataFetcherControllerTest extends BaseTest {
     @Test
     public void testFetchMetadata() throws Exception {
         given(this.playStoreHttpClientMock.get(anyString(), anyString())).willReturn(buildPlayStoreResult());
-        mockMvc.perform(get("/").param("app-package", "it.feio.android.omninotes"))
-          .andExpect(status().isOk())
-          .andDo(result -> {
-              String a = result.getResponse().getForwardedUrl();
-              PlayStoreResult res = new ObjectMapper().readValue(a, PlayStoreResult.class);
-              assertEquals(PlayStoreResult.class, res.getClass());
-              assertEquals(PLAY_STORE_RESULT_SOFTWARE_VERSION, res.getSoftwareVersion());
-          });
-    }
-
-    @Test
-    public void testFetchMetadataFull() throws Exception {
-        given(this.playStoreHttpClientMock.get(anyString(), anyString())).willReturn(buildPlayStoreResult());
-        mockMvc.perform(get("/").param("app-package", "it.feio.android.omninotes"))
+        mockMvc.perform(get("/it.feio.android.omninotes"))
           .andExpect(status().isOk())
           .andDo(result -> {
               String a = result.getResponse().getForwardedUrl();
