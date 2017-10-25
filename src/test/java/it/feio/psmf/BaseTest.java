@@ -10,6 +10,7 @@ public class BaseTest {
     protected final String PLAY_STORE_RESULT_NUM_DOWNLOADS = "100.000-500.000";
     protected final String PLAY_STORE_OPERATING_SISTEMS = "Varia in base al dispositivo";
     protected final String PLAY_STORE_RESULT_CONTENT_RATING = "PEGI 3";
+    protected final String LANG_POSTFIX = "_localized_";
 
     protected PlayStoreResult buildPlayStoreResult() {
         PlayStoreResult playStoreResult = new PlayStoreResult();
@@ -20,6 +21,12 @@ public class BaseTest {
         playStoreResult.setContentRating(PLAY_STORE_RESULT_CONTENT_RATING);
         playStoreResult.setSoftwareVersion(PLAY_STORE_RESULT_SOFTWARE_VERSION);
         return playStoreResult;
+    }
+
+    protected PlayStoreResult buildPlayStoreResult(String lang) {
+        PlayStoreResult res = buildPlayStoreResult();
+        res.setOperatingSystems(res.getOperatingSystems() + LANG_POSTFIX + lang);
+        return res;
     }
 
     protected String buildHtml() {

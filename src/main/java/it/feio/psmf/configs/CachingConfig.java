@@ -1,4 +1,4 @@
-package it.feio.psmf;
+package it.feio.psmf.configs;
 
 import com.google.common.cache.CacheBuilder;
 import java.util.concurrent.TimeUnit;
@@ -9,6 +9,7 @@ import org.springframework.cache.concurrent.ConcurrentMapCache;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 
 @Configuration
 @EnableCaching
