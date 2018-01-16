@@ -2,6 +2,7 @@ package it.feio.psmf.models;
 
 import java.util.NoSuchElementException;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 public class PlayStoreResultAdapter {
 
@@ -19,7 +20,8 @@ public class PlayStoreResultAdapter {
     }
 
     private static String getHtmlValue(Document document, String attribute) {
-        return document.select("div[itemprop='" + attribute + "']").first().ownText().trim();
+        Element element = document.select("div[itemprop='" + attribute + "']").first();
+        return element == null ? "" : element.ownText().trim();
     }
 
     private static String getSoftwareVersion(Document document) {
