@@ -8,6 +8,9 @@ public class PlayStoreResult {
     private String softwareVersion;
     private String operatingSystems;
     private String contentRating;
+    private String score;
+    private String author;
+    private String genre;
 
     public String getDatePublished() {
         return datePublished;
@@ -56,5 +59,28 @@ public class PlayStoreResult {
     public void setContentRating(String contentRating) {
         this.contentRating = contentRating;
     }
-    
+
+    public String getScore() {
+        return score;
+    }
+
+    public void setScore(String score) {
+        this.score = score;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
 }
