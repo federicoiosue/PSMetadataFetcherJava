@@ -1,3 +1,5 @@
+![logo](logo.png)
+
 # Play Store Metadata Fetcher V2
 
 This is a complete overhaul of the old [PHP Play Store Metadata Fetcher](https://github.com/federicoiosue/PSMetadataFetcher) project.
