@@ -16,12 +16,31 @@ public class PlayStoreResultAdapter {
         playStoreResult.setNumDownloads(getHtmlValue(document, "numDownloads"));
         playStoreResult.setOperatingSystems(getHtmlValue(document, "operatingSystems"));
         playStoreResult.setSoftwareVersion(getSoftwareVersion(document));
+        playStoreResult.setScore(getScore(document));
+        playStoreResult.setAuthor(getAuthor(document));
+        playStoreResult.setGenre(getGenre(document));
         return playStoreResult;
     }
 
+    private static String getGenre(Document document) {
+        return getElementBySelector(document, "div[itemprop='author'] span[itemprop='genre']").ownText().trim();
+    }
+
+    private static String getAuthor(Document document) {
+        return getElementBySelector(document, "div[itemprop='author'] span[itemprop='name']").ownText().trim();
+    }
+
+    private static String getScore(Document document) {
+        return getElementBySelector(document, "div[itemprop=aggregateRating] div.score").ownText().trim();
+    }
+
     private static String getHtmlValue(Document document, String attribute) {
-        Element element = document.select("div[itemprop='" + attribute + "']").first();
+        Element element = getElementBySelector(document, "div[itemprop='" + attribute + "']");
         return element == null ? "" : element.ownText().trim();
+    }
+
+    private static Element getElementBySelector(Document document, String selector) {
+        return document.select(selector).first();
     }
 
     private static String getSoftwareVersion(Document document) {
