@@ -1,6 +1,6 @@
 ![logo](logo.png)
 
-![GitHub release](https://img.shields.io/github/release/federicoiosue/psmetadatafetcherjava.svg)](https://github.com/federicoiosue/PSMetadataFetcherJava/releases/latest)
+[![GitHub release](https://img.shields.io/github/release/federicoiosue/psmetadatafetcherjava.svg)](https://github.com/federicoiosue/PSMetadataFetcherJava/releases/latest)
 
 # Play Store Metadata Fetcher V2
 
