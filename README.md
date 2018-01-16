@@ -1,6 +1,10 @@
 ![logo](logo.png)
 
+![GitHub release](https://img.shields.io/github/release/federicoiosue/psmetadatafetcherjava.svg)](https://github.com/federicoiosue/PSMetadataFetcherJava/releases/latest)
+
 # Play Store Metadata Fetcher V2
+
+
 
 This is a complete overhaul of the old [PHP Play Store Metadata Fetcher](https://github.com/federicoiosue/PSMetadataFetcher) project.
 
@@ -14,22 +18,31 @@ A common method to accomplish this task is by providing a service or a web page 
 
 2. Simply run the JAR built from the project with ``` java -jar PlayStoreMetadataFetcher-0.0.1.jar ```, this will start an embedded Tomcat servlet container listening [https://spring.io/blog/2014/03/07/deploying-spring-boot-applications]
 
-3. Perform a HTTP GET request to targeting the API as follows using as query parameter the Google Play Store's app ID and (optional) the desired language:
+3. Perform a HTTP GET request to targeting the API as follows using as path parameters the Google Play Store's app ID and (optional) the desired language:
 
    ```http
-   [YOUR_HOST]:8080?app-package=it.feio.android.omninotes&lang=it
+   {YOUR_HOST}:8080/{APP_ID}[/{LANG}]
+   ```
+
+   For example:
+
+   ```http
+   http://localhost:8080/it.feio.android.omninotes/en
    ```
 
 4. A json similar to the following will be returned, the language will depend on the request param language:
 
    ```json
    {
-     "datePublished": "18 gennaio 2014", 
-     "fileSize": "1,8M", 
-     "numDownloads": "500-1.000", 
-     "softwareVersion": "4.1.2", 
-     "operatingSystems": "2.3 e superiori", 
-     "contentRating": "Maturità bassa"
+   	"datePublished": "January 6, 2018",
+   	"fileSize": "Varies with device",
+   	"numDownloads": "100,000 - 500,000",
+   	"softwareVersion": "5.4.2",
+   	"operatingSystems": "Varies with device",
+   	"contentRating": "PEGI 3",
+   	"score": "4.4",
+   	"author": "Federico Iosue",
+   	"genre": "Productivity"
    }
    ```
 
