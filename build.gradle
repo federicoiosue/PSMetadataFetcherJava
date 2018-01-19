@@ -14,7 +14,7 @@ apply plugin: 'org.springframework.boot'
 
 jar {
     baseName = 'PlayStoreMetadataFetcher'
-    version = '1.2.0'
+    version = '1.2.1'
 }
 
 repositories {
@@ -23,6 +23,10 @@ repositories {
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
+
+springBoot {
+    executable = true
+}
 
 dependencies {
 
