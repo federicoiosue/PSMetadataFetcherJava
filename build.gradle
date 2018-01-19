@@ -24,6 +24,10 @@ repositories {
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+springBoot {
+    executable = true
+}
+
 dependencies {
 
     testCompile 'org.springframework.boot:spring-boot-starter-test'
