@@ -58,3 +58,7 @@ The workaround used to manage this situation is to create the changelog like the
  ![whats-new-parsing](whats-new-parsing.png)
 
 By doing like this the script will automatically parse the version and replace into the returned JSON.
+
+## Install on your machine
+
+You can use [this shell script](https://gist.github.com/federicoiosue/0ab10c662b2b2dd498c3fb1796949b7e) as deployer. After that you'll need to relaunch the Spring Boot service.
