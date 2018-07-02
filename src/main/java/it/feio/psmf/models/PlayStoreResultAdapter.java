@@ -1,6 +1,7 @@
 package it.feio.psmf.models;
 
 import java.util.NoSuchElementException;
+import java.util.logging.Logger;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
@@ -8,35 +9,70 @@ public class PlayStoreResultAdapter {
 
     static final String SEMANTIC_VERSIONING_REGEXP = "(\\d{1,2}\\.){2}\\d{1,2}";
 
+    private static final Logger LOG = Logger.getLogger(PlayStoreResultAdapter.class.getSimpleName());
+
     public static PlayStoreResult adapt(Document document) {
-        PlayStoreResult playStoreResult = new PlayStoreResult();
-        playStoreResult.setContentRating(getHtmlValue(document, "contentRating"));
-        playStoreResult.setDatePublished(getHtmlValue(document, "datePublished"));
-        playStoreResult.setFileSize(getHtmlValue(document, "fileSize"));
-        playStoreResult.setNumDownloads(getHtmlValue(document, "numDownloads"));
-        playStoreResult.setOperatingSystems(getHtmlValue(document, "operatingSystems"));
-        playStoreResult.setSoftwareVersion(getSoftwareVersion(document));
-        playStoreResult.setScore(getScore(document));
-        playStoreResult.setAuthor(getAuthor(document));
-        playStoreResult.setGenre(getGenre(document));
-        return playStoreResult;
+        return new PlayStoreResult()
+          .setName(getName(document))
+          .setDescription(getHtmlValueMeta(document, "description"))
+          .setContentRating(getHtmlValueMeta(document, "contentRating"))
+          .setDatePublished(getHtmlValue(document, "datePublished"))
+          .setFileSize(getHtmlValue(document, "fileSize"))
+          .setNumDownloads(getHtmlValue(document, "numDownloads"))
+          .setOperatingSystems(getHtmlValue(document, "operatingSystems"))
+          .setSoftwareVersion(getSoftwareVersion(document))
+          .setScore(getScore(document))
+          .setReviewCount(getReviewCount(document))
+          .setAuthor(getAuthor(document))
+          .setGenre(getGenre(document));
+    }
+
+    private static String getName(Document document) {
+        return getElementBySelector(document, "h1[itemprop='name'] span").ownText().trim();
+    }
+
+    private static String getReviewCount(Document document) {
+        return getElementBySelector(document, "meta[itemprop='reviewCount']").attr("content").trim();
     }
 
     private static String getGenre(Document document) {
-        return getElementBySelector(document, "div[itemprop='author'] span[itemprop='genre']").ownText().trim();
+        String genre = "";
+        try {
+            genre = getElementBySelector(document, "a[itemprop='genre']").ownText().trim();
+        } catch (NullPointerException e) {
+            LOG.warning("Genre not parsable");
+        }
+        return genre;
     }
 
     private static String getAuthor(Document document) {
-        return getElementBySelector(document, "div[itemprop='author'] span[itemprop='name']").ownText().trim();
+        String author = "";
+        try {
+            author = getElementBySelector(document, "div[itemprop='author'] span[itemprop='name']").ownText().trim();
+        } catch (NullPointerException e) {
+            LOG.warning("Author not parsable");
+        }
+        return author;
     }
 
     private static String getScore(Document document) {
-        return getElementBySelector(document, "div[itemprop=aggregateRating] div.score").ownText().trim();
+        String score = "";
+        try {
+            score = getElementBySelector(document, "meta[itemprop=ratingValue]").attr("content").trim();
+        } catch (NullPointerException e) {
+            LOG.warning("Score not parsable");
+        }
+        return score;
     }
 
     private static String getHtmlValue(Document document, String attribute) {
         Element element = getElementBySelector(document, "div[itemprop='" + attribute + "']");
         return element == null ? "" : element.ownText().trim();
+    }
+
+    private static String getHtmlValueMeta(Document document, String attribute) {
+        Element element = getElementBySelector(document, "meta[itemprop='" + attribute + "']");
+        return element == null ? "" : element.attr("content").trim();
     }
 
     private static Element getElementBySelector(Document document, String selector) {
